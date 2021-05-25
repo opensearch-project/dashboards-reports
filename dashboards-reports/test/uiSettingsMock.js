@@ -24,25 +24,8 @@
  * permissions and limitations under the License.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { AppMountParameters, CoreStart } from '../../../src/core/public';
-import { AppPluginStartDependencies } from './types';
-import { ReportsDashboardsApp } from './components/app';
+const uiSettingsMock = jest.fn();
 
-export const renderApp = (
-  { http, chrome, uiSettings }: CoreStart,
-  { appBasePath, element }: AppMountParameters
-) => {
-  ReactDOM.render(
-    <ReportsDashboardsApp
-      basename={appBasePath}
-      http={http}
-      uiSettings={uiSettings}
-      chrome={chrome}
-    />,
-    element
-  );
+uiSettingsMock.get = jest.fn((key) => ([]));
 
-  return () => ReactDOM.unmountComponentAtNode(element);
-};
+export default uiSettingsMock;

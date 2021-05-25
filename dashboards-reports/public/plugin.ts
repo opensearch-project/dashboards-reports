@@ -42,7 +42,9 @@ export class ReportsDashboardsPlugin
   implements
     Plugin<
       ReportsDashboardsPluginSetup,
-      ReportsDashboardsPluginStart
+      ReportsDashboardsPluginStart,
+      AppPluginStartDependencies,
+      any
     > {
   public setup(core: CoreSetup): ReportsDashboardsPluginSetup {
     // Register an application into the side navigation menu

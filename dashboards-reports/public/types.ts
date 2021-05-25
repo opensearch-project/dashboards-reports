@@ -24,7 +24,7 @@
  * permissions and limitations under the License.
  */
 
-import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
+import { DataPublicPluginStart } from '../../../src/plugins/data/public';
 
 export interface ReportsDashboardsPluginSetup {}
 
@@ -32,5 +32,5 @@ export interface ReportsDashboardsPluginSetup {}
 export interface ReportsDashboardsPluginStart {}
 
 export interface AppPluginStartDependencies {
-  navigation: NavigationPublicPluginStart;
+  data: DataPublicPluginStart;
 }

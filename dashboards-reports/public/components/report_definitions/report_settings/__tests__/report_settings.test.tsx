@@ -30,6 +30,7 @@ import { ReportSettings } from '../report_settings';
 import 'babel-polyfill';
 import 'regenerator-runtime';
 import httpClientMock from '../../../../../test/httpMockClient';
+import uiSettingsMock from '../../../../../test/uiSettingsMock';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { act } from 'react-dom/test-utils';
@@ -114,6 +115,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -158,6 +160,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={true}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -203,6 +206,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={true}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -251,6 +255,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={true}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -299,6 +304,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={true}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -347,6 +353,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={true}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -358,7 +365,6 @@ describe('<ReportSettings /> panel', () => {
     expect(container.firstChild).toMatchSnapshot();
     await act(() => promise);
   });
-  
 
   test('dashboard create from in-context', async () => {
     window = Object.create(window);
@@ -403,6 +409,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -461,6 +468,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -521,6 +529,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -569,6 +578,7 @@ describe('<ReportSettings /> panel', () => {
     const component = shallow(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -617,6 +627,7 @@ describe('<ReportSettings /> panel', () => {
     const component = mount(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -635,7 +646,7 @@ describe('<ReportSettings /> panel', () => {
 
     act(() => {
       comboBox.props().onChange([{ value: 'test', label: 'test' }]);
-    }); 
+    });
     component.update();
 
     await act(() => promise);
@@ -674,6 +685,7 @@ describe('<ReportSettings /> panel', () => {
     const component = mount(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -703,6 +715,7 @@ describe('<ReportSettings /> panel', () => {
     const { container } = render(
       <ReportSettings
         edit={false}
+        uiSettings={uiSettingsMock}
         reportDefinitionRequest={emptyRequest}
         httpClientProps={httpClientMock}
         timeRange={timeRange}
@@ -712,6 +725,47 @@ describe('<ReportSettings /> panel', () => {
     );
 
     expect(container.firstChild).toMatchSnapshot();
+    await act(() => promise);
+  });
+
+  test('load commonlyUsedRanges from uiSettings service', async () => {
+    const promise = Promise.resolve();
+    uiSettingsMock.get = jest.fn((key) => [
+      {
+        from: 'now/d',
+        to: 'now/d',
+        display: 'Foo'
+      }
+    ]);
+
+    const component = mount(
+        <ReportSettings
+            edit={false}
+            uiSettings={uiSettingsMock}
+            reportDefinitionRequest={emptyRequest}
+            httpClientProps={httpClientMock}
+            timeRange={timeRange}
+            showSettingsReportNameError={true}
+            showTimeRangeError={true}
+        />
+    );
+    await act(() => promise);
+
+    const superDatePicker =  component.find('EuiSuperDatePicker').at(0);
+
+    expect(superDatePicker.prop('commonlyUsedRanges')).toEqual(
+        [
+          {
+            start: 'now/d',
+            end: 'now/d',
+            label: 'Foo'
+          }
+        ]
+    );
+
+    expect(uiSettingsMock.get.mock.calls.length).toBeGreaterThan(0);
+    expect(uiSettingsMock.get.mock.calls[0][0]).toBe('timepicker:quickRanges');
+
     await act(() => promise);
   });
 });

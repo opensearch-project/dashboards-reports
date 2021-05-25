@@ -42,7 +42,6 @@ import {
   ChromeBreadcrumb,
   IUiSettingsClient,
 } from '../../../../src/core/public';
-import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
 
 import { CreateReport } from './report_definitions/create/create_report_definition';
 import { Main } from './main/main';
@@ -58,10 +57,9 @@ export interface CoreInterface {
 
 interface ReportsDashboardsAppDeps {
   basename: string;
-  notifications: CoreStart['notifications'];
   http: CoreStart['http'];
-  navigation: NavigationPublicPluginStart;
   chrome: CoreStart['chrome'];
+  uiSettings: IUiSettingsClient
 }
 
 const styles: CSS.Properties = {
@@ -72,10 +70,9 @@ const styles: CSS.Properties = {
 
 export const ReportsDashboardsApp = ({
   basename,
-  notifications,
   http,
-  navigation,
   chrome,
+  uiSettings
 }: ReportsDashboardsAppDeps) => {
   // Render the application DOM.
   return (
@@ -128,6 +125,7 @@ export const ReportsDashboardsApp = ({
                       <EditReportDefinition
                         title="Edit Report Definition"
                         httpClient={http}
+                        uiSettings={uiSettings}
                         {...props}
                         setBreadcrumbs={chrome.setBreadcrumbs}
                       />

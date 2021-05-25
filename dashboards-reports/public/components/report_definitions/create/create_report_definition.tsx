@@ -133,6 +133,7 @@ export function CreateReport(props) {
   const [toasts, setToasts] = useState([]);
   const [comingFromError, setComingFromError] = useState(false);
   const [preErrorData, setPreErrorData] = useState({});
+  const {uiSettings} = props;
 
   const [
     showSettingsReportNameError,
@@ -322,6 +323,7 @@ export function CreateReport(props) {
         <EuiSpacer />
         <ReportSettings
           edit={false}
+          uiSettings={uiSettings}
           reportDefinitionRequest={createReportDefinitionRequest}
           httpClientProps={props['httpClient']}
           timeRange={timeRange}

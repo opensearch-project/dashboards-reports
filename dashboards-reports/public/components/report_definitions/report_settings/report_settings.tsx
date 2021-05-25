@@ -81,6 +81,7 @@ type ReportSettingProps = {
   showSettingsReportSourceError: boolean;
   settingsReportSourceErrorMessage: string;
   showTimeRangeError: boolean;
+  uiSettings: any;
 };
 
 export function ReportSettings(props: ReportSettingProps) {
@@ -95,6 +96,7 @@ export function ReportSettings(props: ReportSettingProps) {
     showSettingsReportSourceError,
     settingsReportSourceErrorMessage,
     showTimeRangeError,
+    uiSettings,
   } = props;
 
   const [reportName, setReportName] = useState('');
@@ -738,6 +740,7 @@ export function ReportSettings(props: ReportSettingProps) {
         {displaySavedSearchSelect}
         <TimeRangeSelect
           timeRange={timeRange}
+          uiSettings={uiSettings}
           reportDefinitionRequest={reportDefinitionRequest}
           edit={edit}
           id={editDefinitionId}

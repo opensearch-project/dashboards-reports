@@ -51,6 +51,7 @@ export function EditReportDefinition(props) {
   const [toasts, setToasts] = useState([]);
   const [comingFromError, setComingFromError] = useState(false);
   const [preErrorData, setPreErrorData] = useState({});
+  const { uiSettings } = props
 
   const [
     showSettingsReportNameError,
@@ -74,7 +75,7 @@ export function EditReportDefinition(props) {
   ] = useState(false);
   const [showCronError, setShowCronError] = useState(false);
   const [
-    showEmailRecipientsError, 
+    showEmailRecipientsError,
     setShowEmailRecipientsError
   ] = useState(false);
   const [
@@ -309,6 +310,7 @@ export function EditReportDefinition(props) {
         <EuiSpacer />
         <ReportSettings
           edit={true}
+          uiSettings={uiSettings}
           editDefinitionId={reportDefinitionId}
           reportDefinitionRequest={editReportDefinitionRequest}
           httpClientProps={props['httpClient']}
