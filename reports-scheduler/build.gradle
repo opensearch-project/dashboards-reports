@@ -12,7 +12,7 @@ buildscript {
         opensearch_group = "org.opensearch"
 
         isSnapshot = "true" == System.getProperty("build.snapshot", "true")
-        opensearch_version = System.getProperty("opensearch.version", "2.1.0-SNAPSHOT")
+        opensearch_version = System.getProperty("opensearch.version", "2.1.1-SNAPSHOT")
         buildVersionQualifier = System.getProperty("build.version_qualifier", "")
         // 2.0.0-rc1-SNAPSHOT -> 2.0.0.0-rc1-SNAPSHOT
         version_tokens = opensearch_version.tokenize('-')
@@ -161,7 +161,7 @@ dependencies {
     implementation "${group}:common-utils:${common_utils_version}"
     compileOnly "${group}:opensearch-job-scheduler-spi:${job_scheduler_version}"
     implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
-    implementation "org.json:json:20180813"
+    implementation "org.json:json:2.1.1813"
     implementation group: 'com.github.wnameless', name: 'json-flattener', version: '0.1.0'
     implementation 'org.jsoup:jsoup:1.14.3'
     implementation 'com.google.code.gson:gson:2.8.9'
