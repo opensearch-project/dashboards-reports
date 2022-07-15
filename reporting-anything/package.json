@@ -1,0 +1,17 @@
+{
+  "name": "reporting-anything",
+  "description": "Download reports from anywhere",
+  "main": "download_report.js",
+  "type": "module",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "commander": "^9.2.0",
+    "dompurify": "^2.1.1",
+    "jsdom": "^19.0.0",
+    "lodash": "^4.17.21",
+    "puppeteer-core": "^13.5.2"
+  },
+  "bin": {
+    "reporting-anything": "src/download_report.js"
+  }
+}
