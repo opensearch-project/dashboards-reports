@@ -46,13 +46,13 @@ export async function downloadVisualReport(url, format, width, height, filename,
     // auth 
     if (username !== undefined && password !== undefined) {
       if(authType === 'basic'){
-        await basicAuthentication(page, overridePage, url, username, password)
+        await basicAuthentication(page, overridePage, url, username, password);
       }
       else if(authType === 'SAML'){
-        await samlAuthentication(page, overridePage, url, username, password)
+        await samlAuthentication(page, overridePage, url, username, password);
       }
       else if (authType === 'cognito'){
-        await cognitoAuthentication(page, overridePage, url, username, password)
+        await cognitoAuthentication(page, overridePage, url, username, password);
       }
     }
     // no auth
